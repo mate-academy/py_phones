@@ -20,14 +20,11 @@ class PhoneBook:
     delete()
     """
     def __init__(self):
-        self._db_name = "db.pickle"
-        try:
-            with open(self._db_name, 'rb') as data:
-                self._phone_book = pickle.load(data)
-        except FileNotFoundError:
-            self._phone_book = {}
+        self._db_name = "dump.pickle"
+        self._phone_book = {}
 
-    def __save(self):
+    def save(self):
+        """Save self._phone_book in pickle file"""
         with open(self._db_name, 'wb') as data:
             pickle.dump(self._phone_book, data)
 
@@ -37,9 +34,9 @@ class PhoneBook:
         """
         if name not in self._phone_book:
             self._phone_book[name] = phone
-            self.__save()
-            return f"Contact name:{name} phone:{phone} was created"
-        return "This name already in phone book"
+            self.save()
+        else:
+            raise KeyError
 
     def read(self, name):
         """
@@ -55,17 +52,13 @@ class PhoneBook:
         """
         if name in self._phone_book:
             self._phone_book[name] = phone
-            self.__save()
-            return f"Contact {name} wos updated"
-        return f"Contact with name {name} was not found"
+            self.save()
+        else:
+            raise KeyError
 
     def delete(self, name):
         """
         Delete record from phone book
         """
-        try:
-            self._phone_book.pop(name)
-            self.__save()
-            return f"Contact with name {name} deleted"
-        except KeyError:
-            return f"Contact with name {name} not found"
+        self._phone_book.pop(name)
+        self.save()
