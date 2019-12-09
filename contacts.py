@@ -5,8 +5,11 @@ import pickle
 class PhoneBook:
     """Class to represent phone book"""
     def __init__(self):
-        with open("pb.pickle", "rb") as _file:
-            self._phone_book = pickle.load(_file)
+        try:
+            with open("pb.pickle", "rb") as _file:
+                self._phone_book = pickle.load(_file)
+        except FileNotFoundError:
+            self._clear()
 
     def create(self, name, phone):
         """
@@ -70,7 +73,7 @@ class PhoneBook:
 
     def _clear(self):
         """
-        Clear phone book or create
+        Clear phone book or create empty phone book
         :return: None
         """
         self._phone_book = {}
