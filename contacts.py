@@ -11,7 +11,7 @@ class PhoneBook:
 
     def __init__(self):
         self._phone_book = {}
-        self._filename = "dump.pickle"
+        self._filename = "phone_book.pickle"
 
     def __str__(self) -> str:
         return f"{self._phone_book}"
