@@ -23,7 +23,7 @@ class PhoneBook:
         self._db_name = "dump.pickle"
         self._phone_book = {}
 
-    def save(self):
+    def _save(self):
         """Save self._phone_book in pickle file"""
         with open(self._db_name, 'wb') as data:
             pickle.dump(self._phone_book, data)
@@ -32,11 +32,10 @@ class PhoneBook:
         """
         Create record in phone book
         """
-        if name not in self._phone_book:
-            self._phone_book[name] = phone
-            self.save()
-        else:
+        if name in self._phone_book:
             raise KeyError
+        self._phone_book[name] = phone
+        self._save()
 
     def read(self, name):
         """
@@ -50,15 +49,14 @@ class PhoneBook:
         """
         Update record in phone book
         """
-        if name in self._phone_book:
-            self._phone_book[name] = phone
-            self.save()
-        else:
+        if name not in self._phone_book:
             raise KeyError
+        self._phone_book[name] = phone
+        self._save()
 
     def delete(self, name):
         """
         Delete record from phone book
         """
         self._phone_book.pop(name)
-        self.save()
+        self._save()
