@@ -1,5 +1,6 @@
 """modules for working with data."""
 import pickle
+import sys
 
 
 class PhoneBook:
@@ -60,13 +61,21 @@ class PhoneBook:
         del self._phone_book[name]
         return "Deleted"
 
-    def write(self):
+    def _write(self):
         """
         Write phone book to file after user finish work with phone book
         :return: None
         """
-        with open("pb.pickle", "wb") as phone_book:
-            pickle.dump(self._phone_book, phone_book)
+        with open("pb.pickle", "wb") as _file:
+            pickle.dump(self._phone_book, _file)
+
+    def quit(self):
+        """
+        write changes to phone book and exit
+        :return: None
+        """
+        self._write()
+        sys.exit()
 
     def _clear(self):
         """
