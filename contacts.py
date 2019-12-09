@@ -15,11 +15,12 @@ class PhoneBook:
         :param phone: phone number of contact
         :return: string report to user
         :raise KeyError if contact already in phone book
+        :raise ValueError in case of invalid number or name
         """
         if name in self._phone_book:
             raise KeyError
         if not name or not phone:
-            return "Invalid name or number"
+            raise ValueError
         self._phone_book[name] = phone
         return "Added"
 
@@ -32,8 +33,6 @@ class PhoneBook:
         """
         if name in self._phone_book:
             return self._phone_book[name]
-        if not self._phone_book:
-            return "Book is empty"
         raise KeyError
 
     def update(self, name, phone):
@@ -47,8 +46,6 @@ class PhoneBook:
         if name in self._phone_book:
             self._phone_book[name] = phone
             return f"Updated. {name}: {self._phone_book[name]}"
-        if not self._phone_book:
-            return "Book is empty"
         raise KeyError
 
     def delete(self, name):
@@ -63,7 +60,7 @@ class PhoneBook:
         del self._phone_book[name]
         return "Deleted"
 
-    def write(self):
+    def _write(self):
         """
         Write phone book to file after user finish work with phone book
         :return: None
