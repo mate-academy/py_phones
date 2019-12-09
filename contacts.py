@@ -60,7 +60,7 @@ class PhoneBook:
         del self._phone_book[name]
         return "Deleted"
 
-    def _write(self):
+    def write(self):
         """
         Write phone book to file after user finish work with phone book
         :return: None

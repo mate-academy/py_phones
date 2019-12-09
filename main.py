@@ -15,7 +15,7 @@ def main():
     """)
         action = input("?").lower()
         if action == 'q':
-            phone_book ._write()
+            phone_book .write()
             break
 
         if action == 'c':
