@@ -50,16 +50,19 @@ class PhoneBook:
         """
         return contact_name in self._phone_book
 
-    def create_new_record(self, new_contact_name, new_contact_phone):
+    def create_new_record(self, new_contact_name: str, new_contact_phone: int):
         """
         Add a new record to the phone book that avoids to add duplicates.
         :param new_contact_name: str
         :param new_contact_phone: int
         :return: None
         """
-        if not self.check_name_exist(new_contact_name):
-            self._phone_book[new_contact_name] = new_contact_phone
-            self.save_data()
+        try:
+            if not self.check_name_exist(new_contact_name):
+                self._phone_book[new_contact_name] = new_contact_phone
+                self.save_data()
+        except ValueError as error:
+            print(error)
 
     def remove_record_by_name(self, contact_name):
         """
@@ -76,5 +79,8 @@ class PhoneBook:
         :param new_phone_number: int
         :return: None
         """
-        self._phone_book[contact_name] = new_phone_number
-        self.save_data()
+        try:
+            self._phone_book[contact_name] = new_phone_number
+            self.save_data()
+        except ValueError as error:
+            print(error)

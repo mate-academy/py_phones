@@ -17,19 +17,16 @@ class Interface:
         Create new record in phone book by using user input.
         :return: None
         """
-        try:
-            full_name = input('Full name: ').lower().capitalize()
-            phone = int(input('Phone: '))
-            if not self.phone_book.check_name_exist(full_name):
-                self.phone_book.create_new_record(full_name, phone)
-                print(f"Successfully created record with name {full_name} "
-                      f"and phone number {phone}")
-            else:
-                print(f"This contact name: {full_name} "
-                      f"with phone number: {phone} "
-                      f"is already exist in our phone book")
-        except ValueError:
-            print("Please try again and insert integer value")
+        full_name = input('Full name: ').lower().capitalize()
+        phone = int(input('Phone: '))
+        if not self.phone_book.check_name_exist(full_name):
+            self.phone_book.create_new_record(full_name, phone)
+            print(f"Successfully created record with name {full_name} "
+                  f"and phone number {phone}")
+        else:
+            print(f"This contact name: {full_name} "
+                  f"with phone number: {phone} "
+                  f"is already exist in our phone book")
 
     def remove_record_by_user_input(self):
         """
@@ -49,18 +46,16 @@ class Interface:
         Update record in phone book by using user input.
         :return: None
         """
-        try:
-            full_name = input('Full name: ').lower().capitalize()
-            phone = int(input('Phone: '))
-            if self.phone_book.check_name_exist(full_name):
-                self.phone_book.update_record_by_name(full_name, phone)
-                print(f"Successfully updated record with "
-                      f"name {full_name} and new phone number {phone}")
-            else:
-                print(f"This contact name: {full_name} "
-                      f"doesn't exist in our phone book")
-        except ValueError:
-            print("Please try again and insert integer value")
+
+        full_name = input('Full name: ').lower().capitalize()
+        phone = int(input('Phone: '))
+        if self.phone_book.check_name_exist(full_name):
+            self.phone_book.update_record_by_name(full_name, phone)
+            print(f"Successfully updated record with "
+                  f"name {full_name} and new phone number {phone}")
+        else:
+            print(f"This contact name: {full_name} "
+                  f"doesn't exist in our phone book")
 
     def get_phone_by_user_input(self):
         """
