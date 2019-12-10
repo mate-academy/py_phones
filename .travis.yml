@@ -6,5 +6,5 @@ install:
 script:
   - pytest
   - flake8 .
-  - pylint {all modules}
+  - pylint main contacts
   - mypy --ignore-missing-imports .
