@@ -9,21 +9,19 @@ read()
 update()
 delete()
 show_all()
+save_exit()
+default()
 """
 
 
-import pickle
+import sys
 import contacts
 
 
-PHONE_BOOK = None
-try:
-    with open("saved_book.pickle", 'rb') as book:
-        PHONE_BOOK = pickle.load(book)
-except FileNotFoundError:
-    pass
+BOOK_1 = "saved_book.pickle"
 
-PH_BOOK = PHONE_BOOK if PHONE_BOOK else contacts.PhoneBook()
+PH_BOOK = (contacts.open_book(BOOK_1) if contacts.open_book(BOOK_1)
+           else contacts.PhoneBook())
 GO_ON = "To continue press Enter"
 
 
@@ -89,13 +87,20 @@ def show_all():
     input()
 
 
-def break_():
-    """Doing nothing (to satisfy mypy test)"""
-    print("Don't call me")
+def save_exit():
+    """Save changes and exit from the program"""
+    contacts.save_book(BOOK_1, PH_BOOK)
+    sys.exit()
+
+
+def default():
+    """Print massage when user select unavailable option"""
+    print('Incorrect option. Press Enter to try again.')
+    input()
 
 
 OPTIONS = {'c': create, 'r': read, 'u': update,
-           'd': delete, 'q': break_, 'a': show_all}
+           'd': delete, 'q': save_exit, 'a': show_all}
 while True:
     print("""What do you want to do?
 c - create
@@ -106,15 +111,5 @@ q - quit
 a - show all names
 """)
     ACTION = input("Choose option: ").lower()
-    if ACTION not in OPTIONS:
-        print('Incorrect option. Press Enter to try again.')
-        input()
-        continue
 
-    if ACTION == 'q':
-        break
-
-    OPTIONS[ACTION]()
-
-with open("saved_book.pickle", 'wb') as book:
-    pickle.dump(PH_BOOK, book)
+    OPTIONS.get(ACTION, default)()

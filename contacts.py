@@ -1,10 +1,34 @@
 """
 Module used to create phone books.
 
+Functions
+---------
+open_book()
+save_book()
+
 Classes
 -------
 PhoneBook
 """
+import pickle
+
+
+def open_book(book_name):
+    """
+    Return content of a pickled file if this file
+    exists, otherwise return None.
+    """
+    try:
+        with open(book_name, 'rb') as book:
+            return pickle.load(book)
+    except FileNotFoundError:
+        return None
+
+
+def save_book(book_name, session):
+    """Save changes made in the book in a pickle format"""
+    with open(book_name, 'wb') as book:
+        pickle.dump(session, book)
 
 
 class PhoneBook:
