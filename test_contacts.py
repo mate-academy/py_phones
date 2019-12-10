@@ -1,23 +1,38 @@
+"""
+Test module
+"""
 import pytest
 import contacts
 
 
 def test_create():
-    p = contacts.PhoneBook()
-    p.create("Bill", 911)
-    assert p.read('Bill') == 911
+    """
+    Test create() option
+    :return:
+    """
+    pbk = contacts.PhoneBook()
+    pbk.create("Bill", 911)
+    assert pbk.read('Bill') == 911
 
 
 def test_update():
-    p = contacts.PhoneBook()
-    p.create("Bill", 911)
-    p.update("Bill", 112)
-    assert p.read('Bill') == 112
+    """
+    Test update() option
+    :return:
+    """
+    pbk = contacts.PhoneBook()
+    pbk.create("Bill", 911)
+    pbk.update("Bill", 112)
+    assert pbk.read('Bill') == 112
 
 
 def test_delete():
-    p = contacts.PhoneBook()
-    p.create("Bill", 911)
-    p.delete("Bill")
+    """
+    Test delete option
+    :return:
+    """
+    pbk = contacts.PhoneBook()
+    pbk.create("Bill", 911)
+    pbk.delete("Bill")
     with pytest.raises(KeyError):
-        p.read('Bill')
+        pbk.read('Bill')
