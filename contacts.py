@@ -15,7 +15,7 @@ class PhoneBook:
         if name in self.data:
             raise KeyError
         self.data[name] = phone
-        # self.data_save()
+        self.data_save()
 
     def read(self, name):
         """Read phone number"""
@@ -28,7 +28,7 @@ class PhoneBook:
         if name not in self.data:
             raise KeyError
         self.data[name] = phone
-        # self.data_save()
+        self.data_save()
 
     def delete(self, name):
         """Delete name"""

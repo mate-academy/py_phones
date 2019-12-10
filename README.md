@@ -18,6 +18,6 @@ To run all style checkers and tests use commands:
 
 `flake8 .`
 
-`pylint {all modules}`
+`pylint main contacts`
 
 `mypy --ignore-missing-imports .`
